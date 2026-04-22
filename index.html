@@ -31,9 +31,18 @@ body {
   align-items: center;
   justify-content: center;
   padding: 2rem 1rem;
-  background: #0a0500;
+  /* NEW: Animated shifting background gradient */
+  background: linear-gradient(-45deg, #0a0500, #1f0a00, #0a0500, #140d00);
+  background-size: 400% 400%;
+  animation: bgShift 15s ease infinite;
   overflow-x: hidden;
   position: relative;
+}
+
+@keyframes bgShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 /* ===== CANVAS BACKGROUND ===== */
@@ -90,21 +99,38 @@ body {
   z-index: 10;
   width: 100%;
   max-width: 480px;
-  animation: cardRise 1.2s cubic-bezier(0.22,1,0.36,1) forwards;
+  /* NEW: Added a continuous floating animation after the initial rise */
+  animation: cardRise 1.2s cubic-bezier(0.22,1,0.36,1) forwards, cardFloat 6s ease-in-out 1.2s infinite;
 }
 @keyframes cardRise {
   from { opacity: 0; transform: translateY(60px) scale(0.96); }
   to { opacity: 1; transform: translateY(0) scale(1); }
 }
+@keyframes cardFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
 
 .card {
   background: linear-gradient(160deg, #1a0e00 0%, #0d0700 40%, #180a00 100%);
-  border: 1px solid rgba(201,168,76,0.25);
   border-radius: 28px;
   padding: 0;
   overflow: hidden;
-  box-shadow: 0 40px 80px rgba(0,0,0,0.8), 0 0 0 1px rgba(201,168,76,0.08), inset 0 1px 0 rgba(201,168,76,0.15);
   position: relative;
+  /* NEW: Pulsing glowing border animation */
+  border: 1px solid rgba(201,168,76,0.25);
+  animation: borderGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes borderGlow {
+  0% {
+    border-color: rgba(201,168,76,0.2);
+    box-shadow: 0 40px 80px rgba(0,0,0,0.8), 0 0 5px rgba(201,168,76,0.1), inset 0 1px 0 rgba(201,168,76,0.15);
+  }
+  100% {
+    border-color: rgba(201,168,76,0.7);
+    box-shadow: 0 40px 80px rgba(0,0,0,0.8), 0 0 25px rgba(201,168,76,0.5), inset 0 1px 0 rgba(201,168,76,0.3);
+  }
 }
 
 /* Fabric texture overlay */
@@ -246,22 +272,6 @@ body {
   50% { transform: scale(1.2); box-shadow: 0 0 12px #2ECC71; }
 }
 
-.profile-info { text-align: center; }
-.profile-name {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.3rem;
-  font-weight: 600;
-  color: var(--cream);
-  letter-spacing: 0.03em;
-}
-.profile-role {
-  font-size: 0.72rem;
-  color: rgba(201,168,76,0.6);
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  margin-top: 0.2rem;
-}
-
 /* ===== SECTION BODY ===== */
 .section-body { padding: 0 1.8rem 1.8rem; }
 
@@ -362,89 +372,74 @@ body {
 
 .btn-stack { display: flex; flex-direction: column; gap: 0.65rem; }
 
-/* ===== SAREE IMAGE GALLERY ===== */
-.gallery-scroll {
+/* ===== SPECIALTIES SHINING MINI BOXES ===== */
+.specialties-container {
   display: flex;
-  gap: 0.75rem;
-  overflow-x: auto;
-  padding: 0.25rem 0 0.75rem;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-}
-.gallery-scroll::-webkit-scrollbar { display: none; }
-
-.gallery-item {
-  flex-shrink: 0;
-  scroll-snap-align: start;
-  border-radius: 14px;
-  overflow: hidden;
-  border: 1px solid rgba(201,168,76,0.2);
-  position: relative;
-  transition: transform 0.3s, border-color 0.3s;
-  cursor: pointer;
-  width: 110px;
-  height: 145px;
-}
-.gallery-item:hover {
-  transform: translateY(-4px) scale(1.02);
-  border-color: rgba(201,168,76,0.6);
-  box-shadow: 0 12px 24px rgba(0,0,0,0.5), 0 0 16px rgba(201,168,76,0.15);
-}
-.gallery-item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s;
-}
-.gallery-item:hover img { transform: scale(1.08); }
-.gallery-item .label {
-  position: absolute;
-  bottom: 0;
-  left: 0; right: 0;
-  padding: 0.5rem 0.4rem 0.4rem;
-  background: linear-gradient(0deg, rgba(0,0,0,0.85) 0%, transparent 100%);
-  font-size: 0.62rem;
-  color: var(--gold-light);
-  text-align: center;
-  letter-spacing: 0.05em;
-}
-
-/* ===== COLLECTION GRID ===== */
-.collection-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 0.6rem;
+  margin: 0.5rem 0;
 }
-.collection-item {
-  background: rgba(201,168,76,0.04);
-  border: 1px solid rgba(201,168,76,0.12);
-  border-radius: 10px;
-  padding: 0.6rem 0.4rem;
-  text-align: center;
-  font-size: 0.75rem;
-  color: #c9b07a;
-  letter-spacing: 0.03em;
-  transition: all 0.3s;
-  cursor: default;
+.specialty-box {
   position: relative;
+  background: rgba(201,168,76,0.04);
+  border: 1px solid rgba(201,168,76,0.25);
+  border-radius: 8px;
+  padding: 0.5rem 0.8rem;
+  font-size: 0.75rem;
+  color: var(--gold-pale);
   overflow: hidden;
+  letter-spacing: 0.05em;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  transition: transform 0.3s, border-color 0.3s;
+  cursor: default;
 }
-.collection-item::before {
+.specialty-box:hover {
+  transform: translateY(-2px);
+  border-color: rgba(201,168,76,0.6);
+}
+
+/* Shining Animation Line */
+.specialty-box::before {
   content: '';
   position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(201,168,76,0.08), transparent);
-  opacity: 0;
-  transition: opacity 0.3s;
+  top: 0; left: -100%;
+  width: 50%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+  transform: skewX(-25deg);
+  animation: shineBox 3s infinite;
 }
-.collection-item:hover::before { opacity: 1; }
-.collection-item:hover {
-  border-color: rgba(201,168,76,0.4);
-  color: var(--gold-pale);
-  transform: translateY(-2px);
+
+/* Staggered shine effect for a nice wave */
+.specialty-box:nth-child(1)::before { animation-delay: 0.0s; }
+.specialty-box:nth-child(2)::before { animation-delay: 0.15s; }
+.specialty-box:nth-child(3)::before { animation-delay: 0.3s; }
+.specialty-box:nth-child(4)::before { animation-delay: 0.45s; }
+.specialty-box:nth-child(5)::before { animation-delay: 0.6s; }
+.specialty-box:nth-child(6)::before { animation-delay: 0.75s; }
+.specialty-box:nth-child(7)::before { animation-delay: 0.9s; }
+
+@keyframes shineBox {
+  0% { left: -100%; }
+  20% { left: 200%; }
+  100% { left: 200%; }
 }
-.collection-item i { display: block; font-size: 1rem; margin-bottom: 0.35rem; color: var(--gold); }
+
+.wholesale-badge {
+  display: block;
+  text-align: center;
+  font-size: 0.78rem;
+  color: var(--gold);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  margin-top: 1.2rem;
+  animation: pulseText 2s infinite;
+  font-weight: 500;
+}
+@keyframes pulseText {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; text-shadow: 0 0 8px rgba(201,168,76,0.6); }
+}
 
 /* ===== ADDRESS ===== */
 .address-card {
@@ -522,11 +517,11 @@ body {
 
 /* ===== RESPONSIVE ENTRANCE DELAYS ===== */
 .fade-in { opacity: 0; animation: fadeInUp 0.7s ease forwards; }
-.delay-1 { animation-delay: 0.15s; }
-.delay-2 { animation-delay: 0.3s; }
-.delay-3 { animation-delay: 0.45s; }
-.delay-4 { animation-delay: 0.6s; }
-.delay-5 { animation-delay: 0.75s; }
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+.delay-4 { animation-delay: 0.4s; }
+.delay-5 { animation-delay: 0.5s; }
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
@@ -535,7 +530,6 @@ body {
 </head>
 <body>
 
-<!-- Animated Mandala Background -->
 <div class="mandala-bg">
   <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#C9A84C" stroke-width="0.5">
     <circle cx="200" cy="200" r="190"/>
@@ -544,11 +538,7 @@ body {
     <circle cx="200" cy="200" r="100"/>
     <circle cx="200" cy="200" r="60"/>
     <circle cx="200" cy="200" r="20"/>
-    <!-- Radial petals -->
     <g transform="translate(200,200)">
-      <script type="text/javascript">
-        /* petals via repeat in SVG */
-      </script>
       <line x1="0" y1="-190" x2="0" y2="190"/>
       <line x1="-190" y1="0" x2="190" y2="0"/>
       <line x1="-134" y1="-134" x2="134" y2="134"/>
@@ -557,7 +547,6 @@ body {
       <line x1="73" y1="-177" x2="-73" y2="177"/>
       <line x1="-177" y1="-73" x2="177" y2="73"/>
       <line x1="177" y1="-73" x2="-177" y2="73"/>
-      <!-- Petal shapes -->
       <ellipse cx="0" cy="-120" rx="15" ry="40" transform="rotate(0)"/>
       <ellipse cx="0" cy="-120" rx="15" ry="40" transform="rotate(45)"/>
       <ellipse cx="0" cy="-120" rx="15" ry="40" transform="rotate(90)"/>
@@ -566,7 +555,6 @@ body {
       <ellipse cx="0" cy="-120" rx="15" ry="40" transform="rotate(225)"/>
       <ellipse cx="0" cy="-120" rx="15" ry="40" transform="rotate(270)"/>
       <ellipse cx="0" cy="-120" rx="15" ry="40" transform="rotate(315)"/>
-      <!-- Inner petals -->
       <ellipse cx="0" cy="-75" rx="10" ry="25" transform="rotate(22.5)"/>
       <ellipse cx="0" cy="-75" rx="10" ry="25" transform="rotate(67.5)"/>
       <ellipse cx="0" cy="-75" rx="10" ry="25" transform="rotate(112.5)"/>
@@ -575,7 +563,6 @@ body {
       <ellipse cx="0" cy="-75" rx="10" ry="25" transform="rotate(247.5)"/>
       <ellipse cx="0" cy="-75" rx="10" ry="25" transform="rotate(292.5)"/>
       <ellipse cx="0" cy="-75" rx="10" ry="25" transform="rotate(337.5)"/>
-      <!-- Diamond points -->
       <polygon points="0,-55 8,-44 0,-33 -8,-44" transform="rotate(0)"/>
       <polygon points="0,-55 8,-44 0,-33 -8,-44" transform="rotate(45)"/>
       <polygon points="0,-55 8,-44 0,-33 -8,-44" transform="rotate(90)"/>
@@ -588,13 +575,10 @@ body {
   </svg>
 </div>
 
-<!-- Particle Field -->
 <div class="particle-field" id="particles"></div>
 
-<!-- Canvas for animated BG -->
 <canvas id="bg-canvas"></canvas>
 
-<!-- MAIN CARD -->
 <div class="card-wrapper">
   <div class="card">
     <div class="corner corner-tl"></div>
@@ -602,22 +586,19 @@ body {
     <div class="corner corner-bl"></div>
     <div class="corner corner-br"></div>
 
-    <!-- HERO -->
     <div class="hero fade-in">
       <div class="hero-border-top"></div>
       <p class="brand-sub" style="margin-bottom:0.5rem;">✦ Est. Gondal ✦</p>
       <h1 class="brand-name">Rajshree Aashapura<br>Saree</h1>
       <p class="brand-sub">Gondal, Saurashtra</p>
-      <div class="tag-badge">✦ Traditional Ethnic &amp; Wedding Wear ✦</div>
+      <div class="tag-badge">✦ Traditional Ethnic & Wedding Wear ✦</div>
     </div>
 
-    <!-- PROFILE -->
     <div class="profile-section fade-in delay-1">
       <div class="profile-ring">
         <svg class="spin-ring" viewBox="0 0 146 146" fill="none" xmlns="http://www.w3.org/2000/svg">
           <circle cx="73" cy="73" r="71" stroke="#C9A84C" stroke-width="1" stroke-dasharray="6 4" opacity="0.5"/>
           <circle cx="73" cy="73" r="65" stroke="#C9A84C" stroke-width="0.5" stroke-dasharray="2 8" opacity="0.3"/>
-          <!-- Decorative diamonds on ring -->
           <polygon points="73,2 76,6 73,10 70,6" fill="#C9A84C" opacity="0.7"/>
           <polygon points="73,136 76,140 73,144 70,140" fill="#C9A84C" opacity="0.7"/>
           <polygon points="2,73 6,70 10,73 6,76" fill="#C9A84C" opacity="0.7"/>
@@ -626,26 +607,12 @@ body {
         <img src="https://i.ibb.co/XzLhS7t/saree-shop-owner-circular.png" alt="Rajshree Aashapura Saree Owner" onerror="this.style.background='linear-gradient(135deg,#5C1A1A,#8B6914)';this.style.display='flex'">
         <div class="glow-dot" title="Open Now"></div>
       </div>
-      <div class="profile-info">
-        <div class="profile-name">Rajbha Parmar</div>
-        <div class="profile-name" style="font-size:1.05rem; margin-top:0.15rem; color: #c9a84c;">& Yajuvendrasinh Jadeja</div>
-        <div class="profile-role">Wholesale &amp; Retail Merchants</div>
-      </div>
     </div>
 
     <div class="section-body">
 
-      <!-- CALL BUTTONS -->
       <div class="section-label fade-in delay-2">📞 Contact Us</div>
       <div class="btn-stack fade-in delay-2">
-        <a href="tel:9879377746" class="btn btn-call">
-          <div class="btn-icon gold"><i class="fa fa-phone"></i></div>
-          <div class="btn-text">
-            <strong>Rajbha Parmar</strong>
-            <span>98793 77746</span>
-          </div>
-          <i class="fa fa-chevron-right btn-arrow"></i>
-        </a>
         <a href="tel:9724004447" class="btn btn-call">
           <div class="btn-icon gold"><i class="fa fa-phone"></i></div>
           <div class="btn-text">
@@ -654,56 +621,47 @@ body {
           </div>
           <i class="fa fa-chevron-right btn-arrow"></i>
         </a>
+        <a href="tel:9879377746" class="btn btn-call">
+          <div class="btn-icon gold"><i class="fa fa-phone"></i></div>
+          <div class="btn-text">
+            <strong>Rajbha Parmar</strong>
+            <span>98793 77746</span>
+          </div>
+          <i class="fa fa-chevron-right btn-arrow"></i>
+        </a>
+        <a href="tel:9824034585" class="btn btn-call">
+          <div class="btn-icon gold"><i class="fa fa-phone"></i></div>
+          <div class="btn-text">
+            <strong>Yogendrasinh Jethva</strong>
+            <span>98240 34585</span>
+          </div>
+          <i class="fa fa-chevron-right btn-arrow"></i>
+        </a>
       </div>
 
       <div class="divider"></div>
 
-      <!-- GALLERY IMAGES -->
-      <div class="section-label fade-in delay-3">🪡 Our Collection</div>
-      <div class="gallery-scroll fade-in delay-3">
-        <!-- Saree/ethnic wear images from Unsplash -->
-        <div class="gallery-item">
-          <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=220&q=80" alt="Silk Saree" loading="lazy" onerror="this.parentElement.style.background='linear-gradient(135deg,#5C1A1A,#8B6914)'">
-          <div class="label">Darbari Saree</div>
-        </div>
-        <div class="gallery-item">
-          <img src="https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=220&q=80" alt="Chaniya Choli" loading="lazy" onerror="this.parentElement.style.background='linear-gradient(135deg,#1A305C,#4C208B)'">
-          <div class="label">Chaniya Choli</div>
-        </div>
-        <div class="gallery-item">
-          <img src="https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=220&q=80" alt="Marwadi Poshak" loading="lazy" onerror="this.parentElement.style.background='linear-gradient(135deg,#3A1A5C,#8B2040)'">
-          <div class="label">Marwadi Poshak</div>
-        </div>
-        <div class="gallery-item">
-          <img src="https://images.unsplash.com/photo-1617627143233-1f8ce2f50a30?w=220&q=80" alt="Rajwadi Collection" loading="lazy" onerror="this.parentElement.style.background='linear-gradient(135deg,#5C3A1A,#8B5C14)'">
-          <div class="label">Rajwadi Paghadi</div>
-        </div>
-        <div class="gallery-item">
-          <img src="https://images.unsplash.com/photo-1600091166971-7f9faad6c498?w=220&q=80" alt="Printed Saree" loading="lazy" onerror="this.parentElement.style.background='linear-gradient(135deg,#1A5C3A,#8B6914)'">
-          <div class="label">Printed Saree</div>
-        </div>
+      <div class="section-label fade-in delay-3">✨ Our Specialties</div>
+      <div class="specialties-container fade-in delay-3">
+        <div class="specialty-box">Darbari Saree</div>
+        <div class="specialty-box">Chaniya Choli</div>
+        <div class="specialty-box">Marwadi Poshak</div>
+        <div class="specialty-box">Salu</div>
+        <div class="specialty-box">Safa</div>
+        <div class="specialty-box">Paghadi</div>
+        <div class="specialty-box">Printed Saree</div>
       </div>
-
-      <!-- COLLECTION TAGS -->
-      <div class="collection-grid fade-in delay-3" style="margin-top:0.8rem;">
-        <div class="collection-item"><i class="fa-solid fa-star"></i>Darbari Saree</div>
-        <div class="collection-item"><i class="fa-solid fa-gem"></i>Chaniya Choli</div>
-        <div class="collection-item"><i class="fa-solid fa-crown"></i>Marwadi Poshak</div>
-        <div class="collection-item"><i class="fa-solid fa-scroll"></i>Salu &amp; Safa</div>
-        <div class="collection-item"><i class="fa-solid fa-hat-cowboy"></i>Rajwadi Paghadi</div>
-        <div class="collection-item"><i class="fa-solid fa-palette"></i>Printed Saree</div>
-      </div>
+      <div class="wholesale-badge fade-in delay-3">Wholesale & Retail</div>
 
       <div class="divider"></div>
 
-      <!-- CONNECT ONLINE -->
       <div class="section-label fade-in delay-4">🌐 Connect Online</div>
       <div class="btn-stack fade-in delay-4">
         <a href="https://whatsapp.com/channel/0029Vb7wYlnD38CNer0CE42b" class="btn btn-wa">
           <div class="btn-icon green"><i class="fa-brands fa-whatsapp"></i></div>
           <div class="btn-text">
             <strong>WhatsApp Channel</strong>
-            <span>Latest collections &amp; offers</span>
+            <span>Latest collections & offers</span>
           </div>
           <i class="fa fa-chevron-right btn-arrow"></i>
         </a>
@@ -735,7 +693,6 @@ body {
 
       <div class="divider"></div>
 
-      <!-- ADDRESS -->
       <div class="section-label fade-in delay-5">📍 Find Us</div>
       <div class="address-card fade-in delay-5">
         <div class="address-icon-wrapper">
@@ -751,21 +708,15 @@ body {
             <div class="btn-icon gold" style="width:24px;height:24px;font-size:0.75rem;border-radius:6px;"><i class="fa-solid fa-map-location-dot"></i></div>
             View Map
           </a>
-          <a href="https://www.google.com/maps/dir/?api=1&destination=Shreeji+Complex+Gondal" class="btn">
-            <div class="btn-icon gold" style="width:24px;height:24px;font-size:0.75rem;border-radius:6px;"><i class="fa-solid fa-route"></i></div>
-            Directions
-          </a>
         </div>
       </div>
 
       <div class="hours-row fade-in delay-5">
         <i class="fa-regular fa-clock"></i>
-        Monday – Saturday &nbsp;|&nbsp; 10:00 AM – 9:00 PM
+        Monday – Saturday  |  10:00 AM – 9:00 PM
       </div>
 
-    </div><!-- /section-body -->
-
-    <div class="ornament" style="padding: 0 2rem 0.5rem;">
+    </div><div class="ornament" style="padding: 0 2rem 0.5rem;">
       <span></span><i class="fa-solid fa-diamond"></i><i class="fa-solid fa-circle" style="font-size:0.3rem;"></i><i class="fa-solid fa-diamond"></i><span></span>
     </div>
 
