@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="gu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>રાજશ્રી આશાપુરા સાડી | Premium Digital Card</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Gujarati:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  /* Royal Midnight Blue & Gold Theme */
+  --bg-dark: #0f172a;
+  --bg-darker: #020617;
+  --gold-primary: #D4AF37;
+  --gold-light: #FBF5B7;
+}
+
+body {
+  margin: 0;
+  font-family: 'Noto Sans Gujarati', 'Poppins', sans-serif;
+  background-color: var(--bg-darker);
+  min-height: 100vh;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* ================= BACKGROUND ANIMATIONS ================= */
+.animated-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--bg-darker) 0%, var(--bg-dark) 100%);
+}
+
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.4;
+  animation: float 15s infinite ease-in-out alternate;
+}
+
+.orb-1 {
+  width: 400px; height: 400px;
+  background: #1e3a8a; /* Deep Blue */
+  top: -10%; left: -10%;
+  animation-duration: 20s;
+}
+
+.orb-2 {
+  width: 300px; height: 300px;
+  background: #b45309; /* Deep Gold/Bronze */
+  bottom: -5%; right: -5%;
+  animation-duration: 18s;
+  animation-delay: -5s;
+}
+
+.orb-3 {
+  width: 250px; height: 250px;
+  background: #3730a3; /* Indigo */
+  top: 40%; left: 50%;
+  animation-duration: 22s;
+  animation-delay: -10s;
+}
+
+@keyframes float {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(30px, -50px) scale(1.1); }
+  100% { transform: translate(-40px, 20px) scale(0.9); }
+}
+
+/* ================= CARD & TEXT STYLING ================= */
+.glass-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  animation: cardEntrance 1s ease-out forwards;
+}
+
+@keyframes cardEntrance {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.text-gold {
+  background: linear-gradient(to right, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ================= BUTTON ANIMATIONS ================= */
+.btn-premium {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-weight: 500;
+  font-size: 15px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  color: #fff;
+  text-decoration: none;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Bouncy hover effect */
+}
+
+/* Button Hover Scale & Shadow */
+.btn-premium:hover {
+  transform: translateY(-4px) scale(1.02);
+  background: rgba(212, 175, 55, 0.1);
+  border-color: var(--gold-primary);
+  box-shadow: 0 10px 20px rgba(212, 175, 55, 0.15);
+  color: var(--gold-light);
+}
+
+/* Button Click Effect */
+.btn-premium:active {
+  transform: translateY(2px) scale(0.98);
+}
+
+/* Button Shine Animation */
+.btn-premium::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 50%; height: 100%;
+  background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0) 100%);
+  transform: skewX(-25deg);
+  animation: shine 6s infinite;
+}
+
+@keyframes shine {
+  0% { left: -100%; }
+  20% { left: 200%; }
+  100% { left: 200%; }
+}
+
+/* Continuous Pulse for Main Call Buttons */
+.btn-call {
+  border-color: rgba(212, 175, 55, 0.6);
+  animation: pulseGlow 2s infinite;
+}
+
+@keyframes pulseGlow {
+  0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(212, 175, 55, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
+}
+
+/* Social Buttons Specifics */
+.btn-wa:hover { border-color: #25D366; color: #25D366; background: rgba(37, 211, 102, 0.05); }
+.btn-insta:hover { border-color: #E1306C; color: #E1306C; background: rgba(225, 48, 108, 0.05); }
+
+/* Elegant List Items Animation */
+.elegant-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.elegant-grid div {
+  background: rgba(255, 255, 255, 0.03);
+  padding: 8px; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: 0.85rem; text-align: center;
+  transition: all 0.3s ease;
+}
+.elegant-grid div:hover {
+  border-color: rgba(212, 175, 55, 0.5); background: rgba(212, 175, 55, 0.05);
+  color: var(--gold-light); transform: translateY(-2px);
+}
+
+.divider { height: 1px; background: linear-gradient(to right, transparent, rgba(212, 175, 55, 0.3), transparent); margin: 1.5rem 0; }
+</style>
+</head>
+
+<body>
+
+  <div class="animated-bg">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <div class="glass-card max-w-md w-full p-8 md:p-10 relative overflow-hidden z-10">
+    
+    <div class="absolute top-0 left-0 w-16 h-16 border-t-2 border-l-2 border-[#D4AF37]/30 rounded-tl-[24px]"></div>
+    <div class="absolute top-0 right-0 w-16 h-16 border-t-2 border-r-2 border-[#D4AF37]/30 rounded-tr-[24px]"></div>
+
+    <div class="text-center">
+      <h2 class="text-3xl font-bold text-gold tracking-wide mb-1">રાજશ્રી આશાપુરા સાડી</h2>
+      <p class="text-sm text-gray-400 font-light tracking-widest uppercase">Gondal</p>
+      <div class="inline-block mt-2 px-4 py-1 bg-[#D4AF37]/10 border border-[#D4AF37]/30 rounded-full text-xs text-[#FBF5B7] shadow-[0_0_10px_rgba(212,175,55,0.2)]">
+        ટ્રેડિશનલ એથનિક અને વેડિંગ વેર
+      </div>
+    </div>
+
+    <div class="relative w-32 h-32 mx-auto mt-6 mb-4">
+      <div class="absolute inset-0 rounded-full border-2 border-dashed border-[#D4AF37] animate-[spin_12s_linear_infinite] opacity-50"></div>
+      <img src="https://i.ibb.co/XzLhS7t/saree-shop-owner-circular.png"
+           alt="Rajshree Aashapura"
+           class="w-full h-full rounded-full object-cover border-4 border-[#0f172a] outline outline-2 outline-[#D4AF37] shadow-2xl p-1 relative z-10 bg-[#0f172a] transition-transform duration-500 hover:scale-105">
+    </div>
+
+    <div class="text-center mb-6">
+      <h1 class="text-lg font-semibold text-white">રાજભા પરમાર & યજુવેન્દ્રસિંહ જાડેજા</h1>
+      <p class="text-xs text-gray-400 mt-1 tracking-wide">હોલસેલ અને રિટેલ વેપારી</p>
+    </div>
+
+    <div class="space-y-4">
+      <a href="tel:9879377746" class="btn-premium btn-call">
+        <i class="fa fa-phone mr-3 text-[#D4AF37]"></i> રાજભા પરમાર (98793 77746)
+      </a>
+      <a href="tel:9724004447" class="btn-premium btn-call">
+        <i class="fa fa-phone mr-3 text-[#D4AF37]"></i> યજુવેન્દ્રસિંહ જાડેજા (97240 04447)
+      </a>
+    </div>
+
+    <div class="divider"></div>
+
+    <h3 class="text-center text-sm text-[#D4AF37] mb-4 font-medium tracking-widest uppercase">ઓનલાઇન જોડાઓ</h3>
+    <div class="space-y-3">
+      <a href="https://whatsapp.com/channel/0029Vb7wYlnD38CNer0CE42b" class="btn-premium btn-wa">
+        <i class="fa-brands fa-whatsapp text-xl mr-3 text-[#25D366]"></i> WhatsApp ચેનલ ફોલો કરો
+      </a>
+      <a href="https://chat.whatsapp.com/LyI0ap8pgZXJMG5DF4lq9U" class="btn-premium btn-wa">
+        <i class="fa-brands fa-whatsapp-community text-xl mr-3 text-[#25D366]"></i> WhatsApp ગ્રુપમાં જોડાઓ
+      </a>
+      <a href="https://wa.me/qr/FXFFCK7XRAUGC1" class="btn-premium btn-wa">
+        <i class="fa-solid fa-qrcode text-xl mr-3 text-[#25D366]"></i> WhatsApp QR સ્કેન કરો
+      </a>
+      <a href="https://www.instagram.com/raj_shree_ashapura_saree?igsh=bHE2ZGR2ZTkzMXV1" class="btn-premium btn-insta">
+        <i class="fa-brands fa-instagram text-xl mr-3 text-[#E1306C]"></i> Instagram પર ફોલો કરો
+      </a>
+    </div>
+
+    <div class="divider"></div>
+
+    <h3 class="text-center text-sm text-[#D4AF37] mb-4 font-medium tracking-widest uppercase">અમારું કલેક્શન</h3>
+    <div class="elegant-grid text-gray-300">
+      <div>દરબારી સાડી</div>
+      <div>ચણિયા ચોળી</div>
+      <div>મારવાડી પોશાક</div>
+      <div>સાલુ અને સાફા</div>
+      <div>રાજવાડી પાઘડી</div>
+      <div>પ્રિન્ટેડ સાડી</div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="text-center">
+      <div class="bg-black/40 p-4 rounded-xl border border-white/5 hover:border-[#D4AF37]/30 transition-colors duration-300">
+        <i class="fa fa-location-dot text-[#D4AF37] text-xl mb-2 animate-bounce"></i>
+        <p class="text-sm text-gray-300 leading-relaxed">
+          શ્રીજી કોમ્પ્લેક્ષ, દુકાન નં. ૧૯-૨૦,<br>
+          કોટડાસાંગાણી રોડ, SRP કેમ્પ સામે,<br>
+          <span class="text-white font-semibold tracking-wide">ગોંડલ.</span>
+        </p>
+      </div>
+
+      <div class="flex gap-3 mt-4">
+        <a href="#" class="flex-1 btn-premium text-xs py-2.5">
+          <i class="fa-solid fa-map-location-dot mr-2 text-[#D4AF37]"></i> નકશો જુઓ
+        </a>
+        <a href="#" class="flex-1 btn-premium text-xs py-2.5">
+          <i class="fa-solid fa-directions mr-2 text-[#D4AF37]"></i> દિશા-નિર્દેશો
+        </a>
+      </div>
+
+      <p class="mt-6 text-xs text-gray-400">
+        <i class="fa-regular fa-clock mr-1 text-[#D4AF37]"></i> સોમ - શનિ | સવારે 10:00 થી રાત્રે 9:00
+      </p>
+    </div>
+
+    <div class="absolute bottom-0 left-0 w-16 h-16 border-b-2 border-l-2 border-[#D4AF37]/30 rounded-bl-[24px]"></div>
+    <div class="absolute bottom-0 right-0 w-16 h-16 border-b-2 border-r-2 border-[#D4AF37]/30 rounded-br-[24px]"></div>
+
+  </div>
+
+</body>
+</html>
