@@ -1,297 +1,847 @@
 <!DOCTYPE html>
-<html lang="gu">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>રાજશ્રી આશાપુરા સાડી | Premium Digital Card</title>
-
-<script src="https://cdn.tailwindcss.com"></script>
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
-
+<title>Rajshree Aashapura Saree | Premium Digital Card</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Gujarati:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
 <style>
 :root {
-  /* Royal Midnight Blue & Gold Theme */
-  --bg-dark: #0f172a;
-  --bg-darker: #020617;
-  --gold-primary: #D4AF37;
-  --gold-light: #FBF5B7;
+  --gold: #C9A84C;
+  --gold-light: #F5E6B3;
+  --gold-pale: #FBF5D8;
+  --gold-dark: #8B6914;
+  --maroon: #5C1A1A;
+  --maroon-deep: #3A0A0A;
+  --cream: #F7EED9;
+  --ink: #1a1006;
 }
 
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
 body {
-  margin: 0;
-  font-family: 'Noto Sans Gujarati', 'Poppins', sans-serif;
-  background-color: var(--bg-darker);
+  font-family: 'Jost', sans-serif;
   min-height: 100vh;
-  color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1rem;
+  padding: 2rem 1rem;
+  background: #0a0500;
   overflow-x: hidden;
   position: relative;
 }
 
-/* ================= BACKGROUND ANIMATIONS ================= */
-.animated-bg {
+/* ===== CANVAS BACKGROUND ===== */
+#bg-canvas {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: -1;
-  overflow: hidden;
-  background: linear-gradient(135deg, var(--bg-darker) 0%, var(--bg-dark) 100%);
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
 }
 
-.orb {
+/* ===== FLOATING PARTICLES ===== */
+.particle-field {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+.particle {
   position: absolute;
   border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.4;
-  animation: float 15s infinite ease-in-out alternate;
+  background: radial-gradient(circle, var(--gold) 0%, transparent 70%);
+  animation: floatUp linear infinite;
+  opacity: 0;
+}
+@keyframes floatUp {
+  0% { transform: translateY(100vh) scale(0); opacity: 0; }
+  10% { opacity: 0.6; }
+  90% { opacity: 0.3; }
+  100% { transform: translateY(-20vh) scale(1.5) rotate(360deg); opacity: 0; }
 }
 
-.orb-1 {
-  width: 400px; height: 400px;
-  background: #1e3a8a; /* Deep Blue */
-  top: -10%; left: -10%;
-  animation-duration: 20s;
-}
-
-.orb-2 {
-  width: 300px; height: 300px;
-  background: #b45309; /* Deep Gold/Bronze */
-  bottom: -5%; right: -5%;
-  animation-duration: 18s;
-  animation-delay: -5s;
-}
-
-.orb-3 {
-  width: 250px; height: 250px;
-  background: #3730a3; /* Indigo */
-  top: 40%; left: 50%;
-  animation-duration: 22s;
-  animation-delay: -10s;
-}
-
-@keyframes float {
-  0% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(30px, -50px) scale(1.1); }
-  100% { transform: translate(-40px, 20px) scale(0.9); }
-}
-
-/* ================= CARD & TEXT STYLING ================= */
-.glass-card {
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(212, 175, 55, 0.2);
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  border-radius: 24px;
-  animation: cardEntrance 1s ease-out forwards;
-}
-
-@keyframes cardEntrance {
-  from { opacity: 0; transform: translateY(40px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.text-gold {
-  background: linear-gradient(to right, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-/* ================= BUTTON ANIMATIONS ================= */
-.btn-premium {
-  position: relative;
+/* ===== MANDALA BG ===== */
+.mandala-bg {
+  position: fixed;
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 12px 20px;
-  border-radius: 12px;
-  font-weight: 500;
-  font-size: 15px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(212, 175, 55, 0.3);
-  color: #fff;
-  text-decoration: none;
+  z-index: 0;
+  pointer-events: none;
+}
+.mandala-bg svg {
+  width: min(600px, 90vw);
+  height: min(600px, 90vw);
+  opacity: 0.04;
+  animation: slowSpin 60s linear infinite;
+}
+@keyframes slowSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+/* ===== MAIN CARD ===== */
+.card-wrapper {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 480px;
+  animation: cardRise 1.2s cubic-bezier(0.22,1,0.36,1) forwards;
+}
+@keyframes cardRise {
+  from { opacity: 0; transform: translateY(60px) scale(0.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.card {
+  background: linear-gradient(160deg, #1a0e00 0%, #0d0700 40%, #180a00 100%);
+  border: 1px solid rgba(201,168,76,0.25);
+  border-radius: 28px;
+  padding: 0;
   overflow: hidden;
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Bouncy hover effect */
+  box-shadow: 0 40px 80px rgba(0,0,0,0.8), 0 0 0 1px rgba(201,168,76,0.08), inset 0 1px 0 rgba(201,168,76,0.15);
+  position: relative;
 }
 
-/* Button Hover Scale & Shadow */
-.btn-premium:hover {
-  transform: translateY(-4px) scale(1.02);
-  background: rgba(212, 175, 55, 0.1);
-  border-color: var(--gold-primary);
-  box-shadow: 0 10px 20px rgba(212, 175, 55, 0.15);
-  color: var(--gold-light);
-}
-
-/* Button Click Effect */
-.btn-premium:active {
-  transform: translateY(2px) scale(0.98);
-}
-
-/* Button Shine Animation */
-.btn-premium::after {
+/* Fabric texture overlay */
+.card::before {
   content: '';
   position: absolute;
-  top: 0; left: -100%;
-  width: 50%; height: 100%;
-  background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0) 100%);
-  transform: skewX(-25deg);
-  animation: shine 6s infinite;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='4' height='4' fill='none'/%3E%3Ccircle cx='1' cy='1' r='0.5' fill='rgba(201,168,76,0.06)'/%3E%3Ccircle cx='3' cy='3' r='0.5' fill='rgba(201,168,76,0.06)'/%3E%3C/svg%3E");
+  z-index: 0;
+  pointer-events: none;
+  border-radius: 28px;
 }
 
-@keyframes shine {
-  0% { left: -100%; }
-  20% { left: 200%; }
-  100% { left: 200%; }
+.card > * { position: relative; z-index: 1; }
+
+/* ===== HERO HEADER ===== */
+.hero {
+  background: linear-gradient(180deg, rgba(92,26,26,0.5) 0%, transparent 100%);
+  padding: 2.5rem 2rem 1.5rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
 }
 
-/* Continuous Pulse for Main Call Buttons */
-.btn-call {
-  border-color: rgba(212, 175, 55, 0.6);
-  animation: pulseGlow 2s infinite;
+.hero-border-top {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--gold-dark), var(--gold), var(--gold-light), var(--gold), var(--gold-dark), transparent);
+  animation: shimmerLine 3s ease-in-out infinite;
+}
+@keyframes shimmerLine {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
 }
 
-@keyframes pulseGlow {
-  0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4); }
-  70% { box-shadow: 0 0 0 10px rgba(212, 175, 55, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
+/* Ornamental corners */
+.corner {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  pointer-events: none;
+}
+.corner-tl { top: 0; left: 0; border-top: 2px solid var(--gold); border-left: 2px solid var(--gold); border-radius: 28px 0 0 0; opacity: 0.5; }
+.corner-tr { top: 0; right: 0; border-top: 2px solid var(--gold); border-right: 2px solid var(--gold); border-radius: 0 28px 0 0; opacity: 0.5; }
+.corner-bl { bottom: 0; left: 0; border-bottom: 2px solid var(--gold); border-left: 2px solid var(--gold); border-radius: 0 0 0 28px; opacity: 0.5; }
+.corner-br { bottom: 0; right: 0; border-bottom: 2px solid var(--gold); border-right: 2px solid var(--gold); border-radius: 0 0 28px 0; opacity: 0.5; }
+
+.brand-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.7rem, 6vw, 2.2rem);
+  font-weight: 700;
+  color: transparent;
+  background: linear-gradient(135deg, #8B6914 0%, #C9A84C 25%, #F5E6B3 50%, #C9A84C 75%, #8B6914 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  background-size: 200% auto;
+  animation: goldShine 4s linear infinite;
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+  margin-bottom: 0.3rem;
+}
+@keyframes goldShine {
+  0% { background-position: 0% center; }
+  100% { background-position: 200% center; }
 }
 
-/* Social Buttons Specifics */
-.btn-wa:hover { border-color: #25D366; color: #25D366; background: rgba(37, 211, 102, 0.05); }
-.btn-insta:hover { border-color: #E1306C; color: #E1306C; background: rgba(225, 48, 108, 0.05); }
-
-/* Elegant List Items Animation */
-.elegant-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-.elegant-grid div {
-  background: rgba(255, 255, 255, 0.03);
-  padding: 8px; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.05);
-  font-size: 0.85rem; text-align: center;
-  transition: all 0.3s ease;
-}
-.elegant-grid div:hover {
-  border-color: rgba(212, 175, 55, 0.5); background: rgba(212, 175, 55, 0.05);
-  color: var(--gold-light); transform: translateY(-2px);
+.brand-sub {
+  font-size: 0.65rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: rgba(201,168,76,0.6);
+  font-weight: 400;
 }
 
-.divider { height: 1px; background: linear-gradient(to right, transparent, rgba(212, 175, 55, 0.3), transparent); margin: 1.5rem 0; }
+.tag-badge {
+  display: inline-block;
+  margin-top: 0.8rem;
+  padding: 0.3rem 1.2rem;
+  border: 1px solid rgba(201,168,76,0.35);
+  border-radius: 50px;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  color: var(--gold-light);
+  background: rgba(201,168,76,0.08);
+  text-transform: uppercase;
+  box-shadow: 0 0 15px rgba(201,168,76,0.1);
+}
+
+/* ===== PROFILE SECTION ===== */
+.profile-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  gap: 1rem;
+}
+
+.profile-ring {
+  position: relative;
+  width: 130px;
+  height: 130px;
+  flex-shrink: 0;
+}
+.profile-ring svg.spin-ring {
+  position: absolute;
+  inset: -8px;
+  width: calc(100% + 16px);
+  height: calc(100% + 16px);
+  animation: slowSpin 20s linear infinite;
+}
+.profile-ring img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--gold-dark);
+  box-shadow: 0 0 30px rgba(201,168,76,0.3), 0 0 60px rgba(201,168,76,0.1);
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+.profile-ring img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 40px rgba(201,168,76,0.5), 0 0 80px rgba(201,168,76,0.2);
+}
+.profile-ring .glow-dot {
+  position: absolute;
+  bottom: 6px;
+  right: 6px;
+  width: 14px;
+  height: 14px;
+  background: #2ECC71;
+  border-radius: 50%;
+  border: 2px solid #0d0700;
+  box-shadow: 0 0 8px #2ECC71;
+  animation: pulseDot 2s infinite;
+}
+@keyframes pulseDot {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 6px #2ECC71; }
+  50% { transform: scale(1.2); box-shadow: 0 0 12px #2ECC71; }
+}
+
+.profile-info { text-align: center; }
+.profile-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--cream);
+  letter-spacing: 0.03em;
+}
+.profile-role {
+  font-size: 0.72rem;
+  color: rgba(201,168,76,0.6);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-top: 0.2rem;
+}
+
+/* ===== SECTION BODY ===== */
+.section-body { padding: 0 1.8rem 1.8rem; }
+
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201,168,76,0.3), transparent);
+  margin: 1.4rem 0;
+}
+
+.section-label {
+  text-align: center;
+  font-size: 0.62rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+.section-label::before, .section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201,168,76,0.3));
+}
+.section-label::after {
+  background: linear-gradient(90deg, rgba(201,168,76,0.3), transparent);
+}
+
+/* ===== BUTTONS ===== */
+.btn {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.85rem 1.2rem;
+  border-radius: 14px;
+  border: 1px solid rgba(201,168,76,0.2);
+  background: rgba(255,255,255,0.03);
+  color: #e8dcc0;
+  text-decoration: none;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  transition: all 0.35s cubic-bezier(0.23,1,0.32,1);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+.btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(201,168,76,0.08) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.btn:hover::before { opacity: 1; }
+.btn:hover {
+  border-color: rgba(201,168,76,0.6);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4), 0 0 12px rgba(201,168,76,0.15);
+  color: var(--gold-pale);
+}
+.btn:active { transform: translateY(0) scale(0.98); }
+
+.btn-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 1rem;
+}
+.btn-icon.gold { background: rgba(201,168,76,0.15); color: var(--gold); }
+.btn-icon.green { background: rgba(37,211,102,0.12); color: #25D366; }
+.btn-icon.pink { background: rgba(225,48,108,0.12); color: #E1306C; }
+
+.btn-text { flex: 1; }
+.btn-text strong { display: block; font-weight: 500; }
+.btn-text span { font-size: 0.72rem; color: rgba(201,168,76,0.5); }
+
+.btn-arrow { color: rgba(201,168,76,0.3); font-size: 0.8rem; transition: transform 0.3s, color 0.3s; }
+.btn:hover .btn-arrow { transform: translateX(4px); color: var(--gold); }
+
+.btn-call { animation: callPulse 3s infinite; }
+@keyframes callPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(201,168,76,0.3); }
+  50% { box-shadow: 0 0 0 8px rgba(201,168,76,0); }
+}
+.btn-call:hover { animation: none; }
+
+.btn-wa:hover { border-color: rgba(37,211,102,0.5); box-shadow: 0 8px 24px rgba(0,0,0,0.4), 0 0 12px rgba(37,211,102,0.1); }
+.btn-insta:hover { border-color: rgba(225,48,108,0.5); box-shadow: 0 8px 24px rgba(0,0,0,0.4), 0 0 12px rgba(225,48,108,0.15); }
+
+.btn-stack { display: flex; flex-direction: column; gap: 0.65rem; }
+
+/* ===== SAREE IMAGE GALLERY ===== */
+.gallery-scroll {
+  display: flex;
+  gap: 0.75rem;
+  overflow-x: auto;
+  padding: 0.25rem 0 0.75rem;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.gallery-scroll::-webkit-scrollbar { display: none; }
+
+.gallery-item {
+  flex-shrink: 0;
+  scroll-snap-align: start;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(201,168,76,0.2);
+  position: relative;
+  transition: transform 0.3s, border-color 0.3s;
+  cursor: pointer;
+  width: 110px;
+  height: 145px;
+}
+.gallery-item:hover {
+  transform: translateY(-4px) scale(1.02);
+  border-color: rgba(201,168,76,0.6);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.5), 0 0 16px rgba(201,168,76,0.15);
+}
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s;
+}
+.gallery-item:hover img { transform: scale(1.08); }
+.gallery-item .label {
+  position: absolute;
+  bottom: 0;
+  left: 0; right: 0;
+  padding: 0.5rem 0.4rem 0.4rem;
+  background: linear-gradient(0deg, rgba(0,0,0,0.85) 0%, transparent 100%);
+  font-size: 0.62rem;
+  color: var(--gold-light);
+  text-align: center;
+  letter-spacing: 0.05em;
+}
+
+/* ===== COLLECTION GRID ===== */
+.collection-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.6rem;
+}
+.collection-item {
+  background: rgba(201,168,76,0.04);
+  border: 1px solid rgba(201,168,76,0.12);
+  border-radius: 10px;
+  padding: 0.6rem 0.4rem;
+  text-align: center;
+  font-size: 0.75rem;
+  color: #c9b07a;
+  letter-spacing: 0.03em;
+  transition: all 0.3s;
+  cursor: default;
+  position: relative;
+  overflow: hidden;
+}
+.collection-item::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(201,168,76,0.08), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.collection-item:hover::before { opacity: 1; }
+.collection-item:hover {
+  border-color: rgba(201,168,76,0.4);
+  color: var(--gold-pale);
+  transform: translateY(-2px);
+}
+.collection-item i { display: block; font-size: 1rem; margin-bottom: 0.35rem; color: var(--gold); }
+
+/* ===== ADDRESS ===== */
+.address-card {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(201,168,76,0.12);
+  border-radius: 16px;
+  padding: 1.2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.address-card::after {
+  content: '';
+  position: absolute;
+  top: -30px; left: -30px;
+  width: 80px; height: 80px;
+  background: radial-gradient(circle, rgba(201,168,76,0.08), transparent);
+  border-radius: 50%;
+}
+.address-icon-wrapper {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: rgba(201,168,76,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 0.8rem;
+  animation: bounce 2s infinite;
+}
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+.address-card p { font-size: 0.83rem; color: #c8b998; line-height: 1.7; }
+.address-card .city { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--cream); font-weight: 600; }
+
+.map-btns { display: flex; gap: 0.65rem; margin-top: 1rem; }
+.map-btns .btn { flex: 1; justify-content: center; padding: 0.7rem; font-size: 0.8rem; gap: 0.5rem; }
+.map-btns .btn-icon { width: 24px; height: 24px; font-size: 0.75rem; border-radius: 6px; }
+
+/* ===== HOURS ===== */
+.hours-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+  color: rgba(201,168,76,0.55);
+  margin-top: 1rem;
+}
+.hours-row i { color: var(--gold); }
+
+/* ===== FOOTER ===== */
+.card-footer {
+  padding: 1rem 2rem;
+  text-align: center;
+  border-top: 1px solid rgba(201,168,76,0.08);
+  font-size: 0.65rem;
+  color: rgba(201,168,76,0.25);
+  letter-spacing: 0.1em;
+}
+
+/* ===== ORNAMENTAL DIVIDER ===== */
+.ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  opacity: 0.4;
+  margin: 0.3rem 0;
+}
+.ornament span { width: 30px; height: 1px; background: var(--gold); }
+.ornament i { color: var(--gold); font-size: 0.6rem; }
+
+/* ===== RESPONSIVE ENTRANCE DELAYS ===== */
+.fade-in { opacity: 0; animation: fadeInUp 0.7s ease forwards; }
+.delay-1 { animation-delay: 0.15s; }
+.delay-2 { animation-delay: 0.3s; }
+.delay-3 { animation-delay: 0.45s; }
+.delay-4 { animation-delay: 0.6s; }
+.delay-5 { animation-delay: 0.75s; }
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 </style>
 </head>
-
 <body>
 
-  <div class="animated-bg">
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-    <div class="orb orb-3"></div>
-  </div>
+<!-- Animated Mandala Background -->
+<div class="mandala-bg">
+  <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#C9A84C" stroke-width="0.5">
+    <circle cx="200" cy="200" r="190"/>
+    <circle cx="200" cy="200" r="170"/>
+    <circle cx="200" cy="200" r="140"/>
+    <circle cx="200" cy="200" r="100"/>
+    <circle cx="200" cy="200" r="60"/>
+    <circle cx="200" cy="200" r="20"/>
+    <!-- Radial petals -->
+    <g transform="translate(200,200)">
+      <script type="text/javascript">
+        /* petals via repeat in SVG */
+      </script>
+      <line x1="0" y1="-190" x2="0" y2="190"/>
+      <line x1="-190" y1="0" x2="190" y2="0"/>
+      <line x1="-134" y1="-134" x2="134" y2="134"/>
+      <line x1="134" y1="-134" x2="-134" y2="134"/>
+      <line x1="-73" y1="-177" x2="73" y2="177"/>
+      <line x1="73" y1="-177" x2="-73" y2="177"/>
+      <line x1="-177" y1="-73" x2="177" y2="73"/>
+      <line x1="177" y1="-73" x2="-177" y2="73"/>
+      <!-- Petal shapes -->
+      <ellipse cx="0" cy="-120" rx="15" ry="40" transform="rotate(0)"/>
+      <ellipse cx="0" cy="-120" rx="15" ry="40" transform="rotate(45)"/>
+      <ellipse cx="0" cy="-120" rx="15" ry="40" transform="rotate(90)"/>
+      <ellipse cx="0" cy="-120" rx="15" ry="40" transform="rotate(135)"/>
+      <ellipse cx="0" cy="-120" rx="15" ry="40" transform="rotate(180)"/>
+      <ellipse cx="0" cy="-120" rx="15" ry="40" transform="rotate(225)"/>
+      <ellipse cx="0" cy="-120" rx="15" ry="40" transform="rotate(270)"/>
+      <ellipse cx="0" cy="-120" rx="15" ry="40" transform="rotate(315)"/>
+      <!-- Inner petals -->
+      <ellipse cx="0" cy="-75" rx="10" ry="25" transform="rotate(22.5)"/>
+      <ellipse cx="0" cy="-75" rx="10" ry="25" transform="rotate(67.5)"/>
+      <ellipse cx="0" cy="-75" rx="10" ry="25" transform="rotate(112.5)"/>
+      <ellipse cx="0" cy="-75" rx="10" ry="25" transform="rotate(157.5)"/>
+      <ellipse cx="0" cy="-75" rx="10" ry="25" transform="rotate(202.5)"/>
+      <ellipse cx="0" cy="-75" rx="10" ry="25" transform="rotate(247.5)"/>
+      <ellipse cx="0" cy="-75" rx="10" ry="25" transform="rotate(292.5)"/>
+      <ellipse cx="0" cy="-75" rx="10" ry="25" transform="rotate(337.5)"/>
+      <!-- Diamond points -->
+      <polygon points="0,-55 8,-44 0,-33 -8,-44" transform="rotate(0)"/>
+      <polygon points="0,-55 8,-44 0,-33 -8,-44" transform="rotate(45)"/>
+      <polygon points="0,-55 8,-44 0,-33 -8,-44" transform="rotate(90)"/>
+      <polygon points="0,-55 8,-44 0,-33 -8,-44" transform="rotate(135)"/>
+      <polygon points="0,-55 8,-44 0,-33 -8,-44" transform="rotate(180)"/>
+      <polygon points="0,-55 8,-44 0,-33 -8,-44" transform="rotate(225)"/>
+      <polygon points="0,-55 8,-44 0,-33 -8,-44" transform="rotate(270)"/>
+      <polygon points="0,-55 8,-44 0,-33 -8,-44" transform="rotate(315)"/>
+    </g>
+  </svg>
+</div>
 
-  <div class="glass-card max-w-md w-full p-8 md:p-10 relative overflow-hidden z-10">
-    
-    <div class="absolute top-0 left-0 w-16 h-16 border-t-2 border-l-2 border-[#D4AF37]/30 rounded-tl-[24px]"></div>
-    <div class="absolute top-0 right-0 w-16 h-16 border-t-2 border-r-2 border-[#D4AF37]/30 rounded-tr-[24px]"></div>
+<!-- Particle Field -->
+<div class="particle-field" id="particles"></div>
 
-    <div class="text-center">
-      <h2 class="text-3xl font-bold text-gold tracking-wide mb-1">રાજશ્રી આશાપુરા સાડી</h2>
-      <p class="text-sm text-gray-400 font-light tracking-widest uppercase">Gondal</p>
-      <div class="inline-block mt-2 px-4 py-1 bg-[#D4AF37]/10 border border-[#D4AF37]/30 rounded-full text-xs text-[#FBF5B7] shadow-[0_0_10px_rgba(212,175,55,0.2)]">
-        ટ્રેડિશનલ એથનિક અને વેડિંગ વેર
+<!-- Canvas for animated BG -->
+<canvas id="bg-canvas"></canvas>
+
+<!-- MAIN CARD -->
+<div class="card-wrapper">
+  <div class="card">
+    <div class="corner corner-tl"></div>
+    <div class="corner corner-tr"></div>
+    <div class="corner corner-bl"></div>
+    <div class="corner corner-br"></div>
+
+    <!-- HERO -->
+    <div class="hero fade-in">
+      <div class="hero-border-top"></div>
+      <p class="brand-sub" style="margin-bottom:0.5rem;">✦ Est. Gondal ✦</p>
+      <h1 class="brand-name">Rajshree Aashapura<br>Saree</h1>
+      <p class="brand-sub">Gondal, Saurashtra</p>
+      <div class="tag-badge">✦ Traditional Ethnic &amp; Wedding Wear ✦</div>
+    </div>
+
+    <!-- PROFILE -->
+    <div class="profile-section fade-in delay-1">
+      <div class="profile-ring">
+        <svg class="spin-ring" viewBox="0 0 146 146" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="73" cy="73" r="71" stroke="#C9A84C" stroke-width="1" stroke-dasharray="6 4" opacity="0.5"/>
+          <circle cx="73" cy="73" r="65" stroke="#C9A84C" stroke-width="0.5" stroke-dasharray="2 8" opacity="0.3"/>
+          <!-- Decorative diamonds on ring -->
+          <polygon points="73,2 76,6 73,10 70,6" fill="#C9A84C" opacity="0.7"/>
+          <polygon points="73,136 76,140 73,144 70,140" fill="#C9A84C" opacity="0.7"/>
+          <polygon points="2,73 6,70 10,73 6,76" fill="#C9A84C" opacity="0.7"/>
+          <polygon points="136,73 140,70 144,73 140,76" fill="#C9A84C" opacity="0.7"/>
+        </svg>
+        <img src="https://i.ibb.co/XzLhS7t/saree-shop-owner-circular.png" alt="Rajshree Aashapura Saree Owner" onerror="this.style.background='linear-gradient(135deg,#5C1A1A,#8B6914)';this.style.display='flex'">
+        <div class="glow-dot" title="Open Now"></div>
+      </div>
+      <div class="profile-info">
+        <div class="profile-name">Rajbha Parmar</div>
+        <div class="profile-name" style="font-size:1.05rem; margin-top:0.15rem; color: #c9a84c;">& Yajuvendrasinh Jadeja</div>
+        <div class="profile-role">Wholesale &amp; Retail Merchants</div>
       </div>
     </div>
 
-    <div class="relative w-32 h-32 mx-auto mt-6 mb-4">
-      <div class="absolute inset-0 rounded-full border-2 border-dashed border-[#D4AF37] animate-[spin_12s_linear_infinite] opacity-50"></div>
-      <img src="https://i.ibb.co/XzLhS7t/saree-shop-owner-circular.png"
-           alt="Rajshree Aashapura"
-           class="w-full h-full rounded-full object-cover border-4 border-[#0f172a] outline outline-2 outline-[#D4AF37] shadow-2xl p-1 relative z-10 bg-[#0f172a] transition-transform duration-500 hover:scale-105">
-    </div>
+    <div class="section-body">
 
-    <div class="text-center mb-6">
-      <h1 class="text-lg font-semibold text-white">રાજભા પરમાર & યજુવેન્દ્રસિંહ જાડેજા</h1>
-      <p class="text-xs text-gray-400 mt-1 tracking-wide">હોલસેલ અને રિટેલ વેપારી</p>
-    </div>
+      <!-- CALL BUTTONS -->
+      <div class="section-label fade-in delay-2">📞 Contact Us</div>
+      <div class="btn-stack fade-in delay-2">
+        <a href="tel:9879377746" class="btn btn-call">
+          <div class="btn-icon gold"><i class="fa fa-phone"></i></div>
+          <div class="btn-text">
+            <strong>Rajbha Parmar</strong>
+            <span>98793 77746</span>
+          </div>
+          <i class="fa fa-chevron-right btn-arrow"></i>
+        </a>
+        <a href="tel:9724004447" class="btn btn-call">
+          <div class="btn-icon gold"><i class="fa fa-phone"></i></div>
+          <div class="btn-text">
+            <strong>Yajuvendrasinh Jadeja</strong>
+            <span>97240 04447</span>
+          </div>
+          <i class="fa fa-chevron-right btn-arrow"></i>
+        </a>
+      </div>
 
-    <div class="space-y-4">
-      <a href="tel:9879377746" class="btn-premium btn-call">
-        <i class="fa fa-phone mr-3 text-[#D4AF37]"></i> રાજભા પરમાર (98793 77746)
-      </a>
-      <a href="tel:9724004447" class="btn-premium btn-call">
-        <i class="fa fa-phone mr-3 text-[#D4AF37]"></i> યજુવેન્દ્રસિંહ જાડેજા (97240 04447)
-      </a>
-    </div>
+      <div class="divider"></div>
 
-    <div class="divider"></div>
+      <!-- GALLERY IMAGES -->
+      <div class="section-label fade-in delay-3">🪡 Our Collection</div>
+      <div class="gallery-scroll fade-in delay-3">
+        <!-- Saree/ethnic wear images from Unsplash -->
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=220&q=80" alt="Silk Saree" loading="lazy" onerror="this.parentElement.style.background='linear-gradient(135deg,#5C1A1A,#8B6914)'">
+          <div class="label">Darbari Saree</div>
+        </div>
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=220&q=80" alt="Chaniya Choli" loading="lazy" onerror="this.parentElement.style.background='linear-gradient(135deg,#1A305C,#4C208B)'">
+          <div class="label">Chaniya Choli</div>
+        </div>
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=220&q=80" alt="Marwadi Poshak" loading="lazy" onerror="this.parentElement.style.background='linear-gradient(135deg,#3A1A5C,#8B2040)'">
+          <div class="label">Marwadi Poshak</div>
+        </div>
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1617627143233-1f8ce2f50a30?w=220&q=80" alt="Rajwadi Collection" loading="lazy" onerror="this.parentElement.style.background='linear-gradient(135deg,#5C3A1A,#8B5C14)'">
+          <div class="label">Rajwadi Paghadi</div>
+        </div>
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1600091166971-7f9faad6c498?w=220&q=80" alt="Printed Saree" loading="lazy" onerror="this.parentElement.style.background='linear-gradient(135deg,#1A5C3A,#8B6914)'">
+          <div class="label">Printed Saree</div>
+        </div>
+      </div>
 
-    <h3 class="text-center text-sm text-[#D4AF37] mb-4 font-medium tracking-widest uppercase">ઓનલાઇન જોડાઓ</h3>
-    <div class="space-y-3">
-      <a href="https://whatsapp.com/channel/0029Vb7wYlnD38CNer0CE42b" class="btn-premium btn-wa">
-        <i class="fa-brands fa-whatsapp text-xl mr-3 text-[#25D366]"></i> WhatsApp ચેનલ ફોલો કરો
-      </a>
-      <a href="https://chat.whatsapp.com/LyI0ap8pgZXJMG5DF4lq9U" class="btn-premium btn-wa">
-        <i class="fa-brands fa-whatsapp-community text-xl mr-3 text-[#25D366]"></i> WhatsApp ગ્રુપમાં જોડાઓ
-      </a>
-      <a href="https://wa.me/qr/FXFFCK7XRAUGC1" class="btn-premium btn-wa">
-        <i class="fa-solid fa-qrcode text-xl mr-3 text-[#25D366]"></i> WhatsApp QR સ્કેન કરો
-      </a>
-      <a href="https://www.instagram.com/raj_shree_ashapura_saree?igsh=bHE2ZGR2ZTkzMXV1" class="btn-premium btn-insta">
-        <i class="fa-brands fa-instagram text-xl mr-3 text-[#E1306C]"></i> Instagram પર ફોલો કરો
-      </a>
-    </div>
+      <!-- COLLECTION TAGS -->
+      <div class="collection-grid fade-in delay-3" style="margin-top:0.8rem;">
+        <div class="collection-item"><i class="fa-solid fa-star"></i>Darbari Saree</div>
+        <div class="collection-item"><i class="fa-solid fa-gem"></i>Chaniya Choli</div>
+        <div class="collection-item"><i class="fa-solid fa-crown"></i>Marwadi Poshak</div>
+        <div class="collection-item"><i class="fa-solid fa-scroll"></i>Salu &amp; Safa</div>
+        <div class="collection-item"><i class="fa-solid fa-hat-cowboy"></i>Rajwadi Paghadi</div>
+        <div class="collection-item"><i class="fa-solid fa-palette"></i>Printed Saree</div>
+      </div>
 
-    <div class="divider"></div>
+      <div class="divider"></div>
 
-    <h3 class="text-center text-sm text-[#D4AF37] mb-4 font-medium tracking-widest uppercase">અમારું કલેક્શન</h3>
-    <div class="elegant-grid text-gray-300">
-      <div>દરબારી સાડી</div>
-      <div>ચણિયા ચોળી</div>
-      <div>મારવાડી પોશાક</div>
-      <div>સાલુ અને સાફા</div>
-      <div>રાજવાડી પાઘડી</div>
-      <div>પ્રિન્ટેડ સાડી</div>
-    </div>
+      <!-- CONNECT ONLINE -->
+      <div class="section-label fade-in delay-4">🌐 Connect Online</div>
+      <div class="btn-stack fade-in delay-4">
+        <a href="https://whatsapp.com/channel/0029Vb7wYlnD38CNer0CE42b" class="btn btn-wa">
+          <div class="btn-icon green"><i class="fa-brands fa-whatsapp"></i></div>
+          <div class="btn-text">
+            <strong>WhatsApp Channel</strong>
+            <span>Latest collections &amp; offers</span>
+          </div>
+          <i class="fa fa-chevron-right btn-arrow"></i>
+        </a>
+        <a href="https://chat.whatsapp.com/LyI0ap8pgZXJMG5DF4lq9U" class="btn btn-wa">
+          <div class="btn-icon green"><i class="fa-brands fa-whatsapp"></i></div>
+          <div class="btn-text">
+            <strong>WhatsApp Community</strong>
+            <span>Join our community group</span>
+          </div>
+          <i class="fa fa-chevron-right btn-arrow"></i>
+        </a>
+        <a href="https://wa.me/qr/FXFFCK7XRAUGC1" class="btn btn-wa">
+          <div class="btn-icon green"><i class="fa-solid fa-qrcode"></i></div>
+          <div class="btn-text">
+            <strong>Scan WhatsApp QR</strong>
+            <span>Quick connect via QR code</span>
+          </div>
+          <i class="fa fa-chevron-right btn-arrow"></i>
+        </a>
+        <a href="https://www.instagram.com/raj_shree_ashapura_saree?igsh=bHE2ZGR2ZTkzMXV1" class="btn btn-insta">
+          <div class="btn-icon pink"><i class="fa-brands fa-instagram"></i></div>
+          <div class="btn-text">
+            <strong>Instagram</strong>
+            <span>@raj_shree_ashapura_saree</span>
+          </div>
+          <i class="fa fa-chevron-right btn-arrow"></i>
+        </a>
+      </div>
 
-    <div class="divider"></div>
+      <div class="divider"></div>
 
-    <div class="text-center">
-      <div class="bg-black/40 p-4 rounded-xl border border-white/5 hover:border-[#D4AF37]/30 transition-colors duration-300">
-        <i class="fa fa-location-dot text-[#D4AF37] text-xl mb-2 animate-bounce"></i>
-        <p class="text-sm text-gray-300 leading-relaxed">
-          શ્રીજી કોમ્પ્લેક્ષ, દુકાન નં. ૧૯-૨૦,<br>
-          કોટડાસાંગાણી રોડ, SRP કેમ્પ સામે,<br>
-          <span class="text-white font-semibold tracking-wide">ગોંડલ.</span>
+      <!-- ADDRESS -->
+      <div class="section-label fade-in delay-5">📍 Find Us</div>
+      <div class="address-card fade-in delay-5">
+        <div class="address-icon-wrapper">
+          <i class="fa-solid fa-location-dot" style="color:var(--gold); font-size:1.1rem;"></i>
+        </div>
+        <p>
+          Shop No. 19-20, Shreeji Complex,<br>
+          Kotdasangani Road, Opp. SRP Camp,<br>
+          <span class="city">Gondal.</span>
         </p>
+        <div class="map-btns">
+          <a href="https://www.google.com/maps/search/?api=1&query=Shreeji+Complex+Gondal" class="btn">
+            <div class="btn-icon gold" style="width:24px;height:24px;font-size:0.75rem;border-radius:6px;"><i class="fa-solid fa-map-location-dot"></i></div>
+            View Map
+          </a>
+          <a href="https://www.google.com/maps/dir/?api=1&destination=Shreeji+Complex+Gondal" class="btn">
+            <div class="btn-icon gold" style="width:24px;height:24px;font-size:0.75rem;border-radius:6px;"><i class="fa-solid fa-route"></i></div>
+            Directions
+          </a>
+        </div>
       </div>
 
-      <div class="flex gap-3 mt-4">
-        <a href="#" class="flex-1 btn-premium text-xs py-2.5">
-          <i class="fa-solid fa-map-location-dot mr-2 text-[#D4AF37]"></i> નકશો જુઓ
-        </a>
-        <a href="#" class="flex-1 btn-premium text-xs py-2.5">
-          <i class="fa-solid fa-directions mr-2 text-[#D4AF37]"></i> દિશા-નિર્દેશો
-        </a>
+      <div class="hours-row fade-in delay-5">
+        <i class="fa-regular fa-clock"></i>
+        Monday – Saturday &nbsp;|&nbsp; 10:00 AM – 9:00 PM
       </div>
 
-      <p class="mt-6 text-xs text-gray-400">
-        <i class="fa-regular fa-clock mr-1 text-[#D4AF37]"></i> સોમ - શનિ | સવારે 10:00 થી રાત્રે 9:00
-      </p>
+    </div><!-- /section-body -->
+
+    <div class="ornament" style="padding: 0 2rem 0.5rem;">
+      <span></span><i class="fa-solid fa-diamond"></i><i class="fa-solid fa-circle" style="font-size:0.3rem;"></i><i class="fa-solid fa-diamond"></i><span></span>
     </div>
 
-    <div class="absolute bottom-0 left-0 w-16 h-16 border-b-2 border-l-2 border-[#D4AF37]/30 rounded-bl-[24px]"></div>
-    <div class="absolute bottom-0 right-0 w-16 h-16 border-b-2 border-r-2 border-[#D4AF37]/30 rounded-br-[24px]"></div>
+    <div class="card-footer">
+      RAJSHREE AASHAPURA SAREE · GONDAL · SAURASHTRA
+    </div>
 
   </div>
+</div>
 
+<script>
+/* ===== FLOATING PARTICLES ===== */
+const field = document.getElementById('particles');
+const COLORS = ['#C9A84C','#F5E6B3','#8B6914','#fff'];
+for (let i = 0; i < 28; i++) {
+  const p = document.createElement('div');
+  p.className = 'particle';
+  const size = Math.random() * 6 + 2;
+  p.style.cssText = `
+    width:${size}px; height:${size}px;
+    left:${Math.random()*100}%;
+    animation-duration:${Math.random()*12+8}s;
+    animation-delay:${Math.random()*10}s;
+    background: radial-gradient(circle, ${COLORS[Math.floor(Math.random()*COLORS.length)]}, transparent 70%);
+  `;
+  field.appendChild(p);
+}
+
+/* ===== CANVAS ANIMATED BACKGROUND ===== */
+const canvas = document.getElementById('bg-canvas');
+const ctx = canvas.getContext('2d');
+let W, H;
+function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+resize();
+window.addEventListener('resize', resize);
+
+const orbs = [
+  { x: W*0.15, y: H*0.2, r: 300, color: '#3A0A0A', vx: 0.15, vy: 0.08 },
+  { x: W*0.8,  y: H*0.7, r: 250, color: '#1A0E00', vx: -0.12, vy: -0.1 },
+  { x: W*0.5,  y: H*0.5, r: 180, color: '#2A1500', vx: 0.08, vy: 0.12 },
+  { x: W*0.2,  y: H*0.8, r: 200, color: '#0A1A3A', vx: 0.1, vy: -0.07 },
+];
+
+function drawOrb(o) {
+  const grad = ctx.createRadialGradient(o.x, o.y, 0, o.x, o.y, o.r);
+  grad.addColorStop(0, o.color + 'CC');
+  grad.addColorStop(1, 'transparent');
+  ctx.fillStyle = grad;
+  ctx.beginPath();
+  ctx.arc(o.x, o.y, o.r, 0, Math.PI*2);
+  ctx.fill();
+}
+
+function animate() {
+  ctx.fillStyle = 'rgba(10,5,0,0.04)';
+  ctx.fillRect(0, 0, W, H);
+  orbs.forEach(o => {
+    drawOrb(o);
+    o.x += o.vx; o.y += o.vy;
+    if (o.x < -o.r || o.x > W+o.r) o.vx *= -1;
+    if (o.y < -o.r || o.y > H+o.r) o.vy *= -1;
+  });
+  requestAnimationFrame(animate);
+}
+ctx.fillStyle = '#0a0500';
+ctx.fillRect(0, 0, W, H);
+animate();
+
+/* ===== INTERSECTION OBSERVER for scroll reveal ===== */
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.style.animationPlayState = 'running'; } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-in').forEach(el => {
+  el.style.animationPlayState = 'paused';
+  observer.observe(el);
+});
+</script>
 </body>
 </html>
