@@ -481,13 +481,13 @@ body.dark-mode .theme-transition { background:#C9A84C; }
 body.light-mode .theme-transition { background:#8B0000; }
 </style>
 </head>
-<body class="dark-mode">
+<body class="light-mode">
 
 <!-- THEME TOGGLE -->
 <div class="theme-toggle-wrap">
   <button class="theme-toggle-btn" id="themeBtn" onclick="toggleTheme()">
-    <span class="toggle-icon" id="toggleIcon">☀️</span>
-    <span id="toggleLabel">Light Mode</span>
+    <span class="toggle-icon" id="toggleIcon">🌙</span>
+    <span id="toggleLabel">Dark Mode</span>
   </button>
 </div>
 
@@ -561,11 +561,7 @@ body.light-mode .theme-transition { background:#8B0000; }
           <div class="btn-text"><strong>Rajbha Parmar</strong><span>98793 77746</span></div>
           <i class="fa fa-chevron-right btn-arrow"></i>
         </a>
-        <a href="tel:9824034585" class="btn btn-call">
-          <div class="btn-icon gold"><i class="fa fa-phone"></i></div>
-          <div class="btn-text"><strong>Yogendrasinh Jethva</strong><span>98240 34585</span></div>
-          <i class="fa fa-chevron-right btn-arrow"></i>
-        </a>
+
       </div>
 
       <div class="divider"></div>
@@ -588,7 +584,7 @@ body.light-mode .theme-transition { background:#8B0000; }
       <div class="btn-stack fade-in delay-4">
         <a href="https://whatsapp.com/channel/0029Vb7wYlnD38CNer0CE42b" class="btn btn-wa">
           <div class="btn-icon green"><i class="fa-brands fa-whatsapp"></i></div>
-          <div class="btn-text"><strong>Updates</strong><span>Latest collections & offers</span></div>
+          <div class="btn-text"><strong>WhatsApp Community</strong><span>Latest collections & offers</span></div>
           <i class="fa fa-chevron-right btn-arrow"></i>
         </a>
         <a href="https://chat.whatsapp.com/LyI0ap8pgZXJMG5DF4lq9U" class="btn btn-wa">
@@ -617,7 +613,7 @@ body.light-mode .theme-transition { background:#8B0000; }
         </div>
         <p>RAJSHREE AASHAPURA SAREE<br>Shop No. 19-20, Shreeji Complex,<br>Kotdasangani Road, Opp. SRP Camp,<br><span class="city">Gondal.</span></p>
         <div class="map-btns">
-          <a href="https://www.google.com/maps/search/?api=1&query=Shreeji+Complex+Gondal" class="btn">
+          <a href="https://maps.app.goo.gl/YzBwA3LYuPhDc5XY7" class="btn">
             <div class="btn-icon gold" style="width:28px;height:28px;font-size:0.8rem;border-radius:8px;"><i class="fa-solid fa-map-location-dot"></i></div>
             View on Google Maps
           </a>
@@ -625,8 +621,9 @@ body.light-mode .theme-transition { background:#8B0000; }
       </div>
 
       <div class="hours-row fade-in delay-5">
+        <i class="fa-solid fa-circle" style="font-size:0.5rem;color:#27AE60;animation:pulseDot 2s infinite;"></i>
         <i class="fa-regular fa-clock"></i>
-        Monday – Saturday &nbsp;|&nbsp; 10:00 AM – 9:00 PM
+        <span>All Days Open &nbsp;</span>
       </div>
     </div>
 
@@ -752,8 +749,9 @@ function hidePetals() {
   petalEls.forEach(p => p.style.display = "none");
 }
 
-// Default: dark mode active, petals hidden
-hidePetals();
+// Default: light mode active, dark effects hidden
+hideDarkEffects();
+showPetals();
 
 // Intersection Observer
 const observer = new IntersectionObserver(entries => {
